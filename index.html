@@ -1,0 +1,58 @@
+<!--
+Programa: Jogo Simples
+Nome:Henrique Cavalcante Silva - Nº: 29- Turma: 2L
+DESCRIÇÃO: Um jogo simples onde dois personagens se movem e colidem.
+-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo Simples</title>
+    <style>
+        canvas {
+            border: 1px solid black; /* Adiciona uma borda ao canvas */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas'); // Obtém o canvas pelo ID
+        const ctx = canvas.getContext('2d'); // Cria um contexto 2D para desenhar
+
+        // Jogadores
+        let player1 = { x: 50, y: 50, size: 30 }; // Jogador azul
+        let player2 = { x: 500, y: 300, size: 30 }; // Jogador vermelho
+
+        // Desenhar os jogadores
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas
+            ctx.fillStyle = 'blue'; // Define a cor do jogador 1
+            ctx.fillRect(player1.x, player1.y, player1.size, player1.size); // Desenha o jogador 1
+            ctx.fillStyle = 'red'; // Define a cor do jogador 2
+            ctx.fillRect(player2.x, player2.y, player2.size, player2.size); // Desenha o jogador 2
+        }
+
+        // Movimentação do jogador 2
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') player2.x -= 5; // Move para a esquerda
+            if (event.key === 'ArrowRight') player2.x += 5; // Move para a direita
+            if (event.key === 'ArrowUp') player2.y -= 5; // Move para cima
+            if (event.key === 'ArrowDown') player2.y += 5; // Move para baixo
+            
+            // Checar colisão
+            if (player1.x < player2.x + player2.size &&
+                player1.x + player1.size > player2.x &&
+                player1.y < player2.y + player2.size &&
+                player1.y + player1.size > player2.y) {
+                alert("COLISÃO DETECTADA"); // Alerta de colisão
+            }
+            draw(); // Desenha os jogadores novamente
+        });
+
+        draw(); // Chama a função de desenho pela primeira vez
+    </script>
+</body>
+</html>
